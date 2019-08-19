@@ -15,14 +15,12 @@ if ($response['conexion'] == 'OK'){
       if (password_verify($_POST['password'], $fila['pass'])) {
         $response['msg'] = 'OK';
         session_start();
-        $_SESSION['username']=$fila['nombre_usuario'];
+        $_SESSION['username']=$_POST['username'];
       }else {
         $response['msg'] = 'Contraseña incorrecta';
-        //$response['acceso'] = 'rechazado';
       }
     }else{
       $response['msg'] = 'Email incorrecto';
-      //$response['acceso'] = 'rechazado';
     }
 }else{
     $response['msg']= "No se pudo conectar a la base de datos";

@@ -17,6 +17,8 @@ class EventsManager {
           contentType: false,
           type: 'GET',
           success: (data) =>{
+            
+            console.log("data")
             if (data.msg=="OK") {
               this.poblarCalendario(data.eventos)
             }else {
@@ -38,7 +40,7 @@ class EventsManager {
         		center: 'title',
         		right: 'month,agendaWeek,basicDay'
         	},
-        	defaultDate: '2016-11-01',
+        	defaultDate: '2018-11-01',
         	navLinks: true,
         	editable: true,
         	eventLimit: true,
@@ -199,7 +201,7 @@ class EventsManager {
 
 $(function(){
   initForm();
-  var e = new EventsManager();
+  var e = new EventsManager();  
   $('form').submit(function(event){
     event.preventDefault()
     e.anadirEvento()

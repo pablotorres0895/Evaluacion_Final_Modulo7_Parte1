@@ -47,6 +47,7 @@ class DbConnector
         }else $sql .= ');';
         $i++;
       }
+      echo $sql;
       return $this->executeQuery($sql);
 
     }
@@ -78,6 +79,7 @@ class DbConnector
       }
       return $this->executeQuery($sql);
     }
+    
 }
 
 ?>

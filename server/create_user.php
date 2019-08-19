@@ -26,5 +26,6 @@ if ($response['conexion'] == 'OK'){
     $response['msg']= "No se pudo conectar a la base de datos";
 }
 
+$con->closeConnection();
 echo json_encode($response);
  ?>
