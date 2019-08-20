@@ -17,8 +17,6 @@ class EventsManager {
           contentType: false,
           type: 'GET',
           success: (data) =>{
-            
-            console.log("data")
             if (data.msg=="OK") {
               this.poblarCalendario(data.eventos)
             }else {
@@ -27,7 +25,7 @@ class EventsManager {
             }
           },
           error: function(){
-            alert("error en la comunicación con el servidor");
+            alert("error en la comunicación con el servidor al cargar informacion");
           }
         })
 
@@ -40,7 +38,7 @@ class EventsManager {
         		center: 'title',
         		right: 'month,agendaWeek,basicDay'
         	},
-        	defaultDate: '2018-11-01',
+        	defaultDate: '2016-11-01',
         	navLinks: true,
         	editable: true,
         	eventLimit: true,
@@ -96,6 +94,7 @@ class EventsManager {
         type: 'POST',
         success: (data) =>{
           if (data.msg=="OK") {
+            console.log(data.evento);
             alert('Se ha añadido el evento exitosamente')
             if (document.getElementById('allDay').checked) {
               $('.calendario').fullCalendar('renderEvent', {
@@ -119,8 +118,9 @@ class EventsManager {
             alert(data.msg)
           }
         },
-        error: function(){
-          alert("error en la comunicación con el servidor");
+        error: function(err){
+          alert("error en la comunicación con el servidor al crear evento");
+          console.log(err);
         }
       })
 
@@ -201,7 +201,7 @@ class EventsManager {
 
 $(function(){
   initForm();
-  var e = new EventsManager();  
+  var e = new EventsManager();
   $('form').submit(function(event){
     event.preventDefault()
     e.anadirEvento()

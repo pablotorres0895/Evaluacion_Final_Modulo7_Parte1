@@ -14,7 +14,8 @@ if (isset($_SESSION['username'])) {
         //$fila = $resultado->fetch_assoc();
         $i=0;
       while ($fila = $resultado->fetch_assoc()) {
-        //echo $fila;
+        //echo 'Entro ';
+        //echo $fila['titulo'];
         $response['eventos'][$i]['titulo']=$fila['titulo'];
         $response['eventos'][$i]['fecha_inicio']=$fila['fecha_inicio'];
         $response['eventos'][$i]['ind_dia_completo']=$fila['ind_dia_completo'];
@@ -31,6 +32,8 @@ if (isset($_SESSION['username'])) {
 }else{
     header('Location: '.'../client/index.html');
 }
+
 $con->closeConnection();
 echo json_encode($response);
+
  ?>

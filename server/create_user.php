@@ -27,5 +27,6 @@ if ($response['conexion'] == 'OK'){
 }
 
 $con->closeConnection();
+
 echo json_encode($response);
  ?>
