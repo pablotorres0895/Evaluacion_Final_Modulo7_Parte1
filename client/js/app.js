@@ -18,8 +18,8 @@ class EventsManager {
           type: 'GET',
           success: (data) =>{
             if (data.msg=="OK") {
-              if (data.eventos){
-                this.poblarCalendario(JSON.parse(data.eventos))
+              if (data.eventos !== undefined){
+                this.poblarCalendario(data.eventos);
               }else{
                 this.poblarCalendario(data)
               }
@@ -175,7 +175,9 @@ class EventsManager {
         form_data.append('end_date', end_date)
         form_data.append('start_hour', start_hour)
         form_data.append('end_hour', end_hour)
-
+        console.log(end_date)
+        console.log(start_hour)
+        console.log(end_hour)
         $.ajax({
           url: '../server/update_event.php',
           dataType: "json",

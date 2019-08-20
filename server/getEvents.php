@@ -9,20 +9,26 @@ if (isset($_SESSION['username'])) {
     $response['conexion'] = $con->initConnection('php_calendar');
     
     if ($response['conexion'] == 'OK'){
-      $consulta = "Select * from evento where fk_usuario = '".$_SESSION['username']."'";
-      $result = $con->executeQuery($consulta);
-      while($fila = mysqli_fetch_array($result)){
-        if(empty($Eventos)){
-          $eventos="[".json_encode(array("id"=> $fila['id_evento'], "title"=> $fila['titulo'], "start"=> $fila['fecha_inicio']." ". $fila['hora_inicio'], "allDay"=> $fila['ind_dia_completo'], "end"=> $fila['fecha_finalizacion']." ".$fila['hora_finalizacion']));
-        }else{
-          $eventos=$eventos.",".json_encode(array("id"=> $fila['id_evento'], "title"=> $fila['titulo'], "start"=> $fila['fecha_inicio']." ". $fila['hora_inicio'], "allDay"=> $fila['ind_dia_completo'], "end"=> $fila['fecha_finalizacion']." ".$fila['hora_finalizacion']));
+        $resultado = $con->consult(['evento'], ['id_evento', 
+                                                'titulo', 
+                                                'fecha_inicio', 
+                                                'hora_inicio',
+                                                'fecha_finalizacion',
+                                                'hora_finalizacion',
+                                                'ind_dia_completo'], "WHERE fk_usuario ='".$_SESSION['username']."'");
+        
+        $i=0;
+        
+        while($fila = $resultado->fetch_assoc()){
+            $response['eventos'][$i]['id']=$fila['id_evento'];
+            $response['eventos'][$i]['title']=$fila['titulo'];
+            $response['eventos'][$i]['start']=$fila['fecha_inicio']." ".$fila['hora_inicio'];
+            $response['eventos'][$i]['allDay']=$fila['ind_dia_completo'];
+            $response['eventos'][$i]['end']=$fila['fecha_finalizacion']." ".$fila['hora_finalizacion'];
+            $i++;
         }
-      }
-      if(!empty($eventos)){
-        $eventos=$eventos."]";
-        $response['eventos']  = $eventos;
-      }
-      $response['msg'] = "OK";
+
+        $response['msg'] = "OK";
     }else{
         $response['msg']= "No se pudo conectar a la base de datos";
     }

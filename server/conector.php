@@ -84,6 +84,20 @@ class DbConnector
       $sql = "DELETE FROM ".$tabla." WHERE ".$condicion.";";
       return $this->executeQuery($sql);
     }
+
+    function updateRecord($tabla, $data, $condicion){
+      $sql = 'UPDATE '.$tabla.' SET ';
+      $i=1;
+      foreach ($data as $key => $value) {
+        $sql .= $key.'='.$value;
+        if ($i<sizeof($data)) {
+          $sql .= ', ';
+        }else $sql .= ' WHERE '.$condicion.';';
+        $i++;
+      }
+      //echo $sql;
+      return $this->executeQuery($sql);
+    }
 }
 
 ?>
