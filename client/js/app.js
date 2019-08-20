@@ -18,7 +18,11 @@ class EventsManager {
           type: 'GET',
           success: (data) =>{
             if (data.msg=="OK") {
-              this.poblarCalendario(data.eventos)
+              if (data.eventos){
+                this.poblarCalendario(JSON.parse(data.eventos))
+              }else{
+                this.poblarCalendario(data)
+              }
             }else {
               alert(data.msg)
               window.location.href = 'index.html';
