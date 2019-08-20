@@ -98,7 +98,6 @@ class EventsManager {
         type: 'POST',
         success: (data) =>{
           if (data.msg=="OK") {
-            console.log(data.evento);
             alert('Se ha añadido el evento exitosamente')
             if (document.getElementById('allDay').checked) {
               $('.calendario').fullCalendar('renderEvent', {
@@ -114,8 +113,6 @@ class EventsManager {
                 end: $('#end_date').val()+" "+$('#end_hour').val()
               })
             }
-
-
 
 
           }else {
@@ -146,7 +143,7 @@ class EventsManager {
           if (data.msg=="OK") {
             alert('Se ha eliminado el evento exitosamente')
           }else {
-            alert(data.msg)
+            alert("Error "+ data.msg)
           }
         },
         error: function(){

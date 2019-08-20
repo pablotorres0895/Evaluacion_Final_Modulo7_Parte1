@@ -80,6 +80,10 @@ class DbConnector
       return $this->executeQuery($sql);
     }
     
+    function deleteRecord($tabla, $condicion){
+      $sql = "DELETE FROM ".$tabla." WHERE ".$condicion.";";
+      return $this->executeQuery($sql);
+    }
 }
 
 ?>
